@@ -2,5 +2,5 @@ import express from 'express'
 const app = express()
 
 app.get('/user', (req, res) =>
-    res.send('Hello there'))
+    res.send('Hello there you user!'))
 app.listen(3030, () => console.log('Server ready at port 3030')) 
