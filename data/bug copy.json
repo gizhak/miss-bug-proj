@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "b101",
+    "title": "Cannot save a new car",
+    "description": "problem when clicking Save",
+    "severity": 3,
+    "createdAt": 1542107359454
+  },
+  {
+    "_id": "b102",
+    "title": "Cannot click a new car",
+    "description": "problem when clicking car",
+    "severity": 1,
+    "createdAt": 15407359454
+  }
+]
