@@ -5,6 +5,7 @@ import { loggerService } from './services/logger.service.js'
 
 
 const app = express()
+app.use(express.static('public'))
 
 // var bugs = [
 //     {
@@ -24,6 +25,7 @@ const app = express()
 // ]
 
 // save new bug
+
 app.get('/api/bug/save', (req, res) => {
     const { id: _id, title, description, severity } = req.query
     const bug = { _id, title, description, severity: +severity, createdAt: Date.now() }
