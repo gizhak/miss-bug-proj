@@ -1,6 +1,7 @@
 import express from 'express'
 import { makeId } from './services/util.service.js'
 import { bugService } from './services/bug.service.js'
+import { loggerService } from './services/logger.service.js'
 
 
 const app = express()
@@ -44,8 +45,10 @@ app.get('/api/bug/:id', (req, res) => {
     const bugId = req.params.id
     bugService.getById(bugId)
         .then(bug => res.send(bug))
-    // const bug = bugs.find(bug => bug._id === bugId)
-    //
+        .catch(err => {
+            loggerService.error(err)
+            res.status(404).send(err)
+        })
 })
 
 // remove bug by id
@@ -62,4 +65,4 @@ app.get('/api/bug/:id/remove', (req, res) => {
 app.get('/user', (req, res) =>
     res.send('Hello there you user!'))
 
-app.listen(3030, () => console.log('Server ready at port 3030')) 
+app.listen(3030, () => loggerService.info('Server ready at port 3030')) 
