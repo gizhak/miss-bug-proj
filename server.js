@@ -25,14 +25,16 @@ app.use(express.static('public'))
 // ]
 
 // save new bug
-
 app.get('/api/bug/save', (req, res) => {
-    const { id: _id, title, description, severity } = req.query
-    const bug = { _id, title, description, severity: +severity, createdAt: Date.now() }
-    // console.log(req.query)
+    const { _id, title, description, severity } = req.query
+    const bug = { _id: _id || makeId(), title, description, severity: +severity, createdAt: Date.now() }
 
     bugService.save(bug)
-        .then(bug => res.send(bug))
+        .then(savedBug => res.send(savedBug))
+        .catch(err => {
+            loggerService.error(err)
+            res.status(500).send(err)
+        })
 })
 
 

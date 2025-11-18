@@ -31,8 +31,12 @@ function remove(bugId) {
 function save(bug) {
     if (bug._id) {
         const idx = bugs.findIndex(b => b._id === bug._id)
-        if (idx === -1) return Promise.reject('Bug not found')
-        bugs[idx] = bug
+        if (idx !== -1) {
+            bugs[idx] = bug
+        } else {
+            // Bug with this ID doesn't exist, create new one
+            bugs.push(bug)
+        }
     } else {
         bug._id = makeId()
         bugs.push(bug)
