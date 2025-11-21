@@ -63,6 +63,10 @@ app.get('/api/bug/:id/remove', (req, res) => {
     // bugs.splice(idx, 1)
     bugService.remove(bugId)
         .then(() => res.send('OK'))
+        .catch(err => {
+            loggerService.error(err)
+            res.status(500).send(err)
+        })
 })
 
 
