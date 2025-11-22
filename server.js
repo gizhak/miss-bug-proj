@@ -40,7 +40,13 @@ app.get('/api/bug/save', (req, res) => {
 
 // add API for all bugs
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    console.log('Getting bugs', req.query)
+    const filterBy = {
+        txt: req.query.txt || '',
+        minSeverity: +req.query.minSeverity || 0
+    }
+
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
 })
 
