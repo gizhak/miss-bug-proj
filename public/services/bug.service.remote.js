@@ -16,7 +16,8 @@ export const bugService = {
 
 function query(filterBy) {
     return axios.get(BASE_URL)
-        .then(bugs => {
+        .then(res => {
+            let bugs = res.data
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 bugs = bugs.filter(bug => regExp.test(bug.title))
@@ -48,7 +49,7 @@ function save(bug) {
 
 function _createBugs() {
     let bugs = utilService.loadFromStorage(STORAGE_KEY)
-    if (bugs && bugs.length > 0) return 
+    if (bugs && bugs.length > 0) return
 
     bugs = [
         {

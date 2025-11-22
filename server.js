@@ -27,7 +27,7 @@ app.use(express.static('public'))
 
 // save new bug
 app.get('/api/bug/save', (req, res) => {
-    const { _id, title, description, severity } = req.query
+    const { id: _id, title, description, severity } = req.query
     const bug = { _id: _id || makeId(), title, description, severity: +severity, createdAt: Date.now() }
 
     bugService.save(bug)
@@ -38,7 +38,6 @@ app.get('/api/bug/save', (req, res) => {
         })
 })
 
-
 // add API for all bugs
 app.get('/api/bug', (req, res) => {
     bugService.query()
@@ -48,6 +47,7 @@ app.get('/api/bug', (req, res) => {
 // find bug by id
 app.get('/api/bug/:id', (req, res) => {
     const bugId = req.params.id
+
     bugService.getById(bugId)
         .then(bug => res.send(bug))
         .catch(err => {
@@ -66,10 +66,9 @@ app.get('/api/bug/:id/remove', (req, res) => {
         .then(() => res.send('OK'))
         .catch(err => {
             loggerService.error(err)
-            res.status(500).send(err)
+            res.status(404).send(err)
         })
 })
-
 
 app.get('/user', (req, res) =>
     res.send('Hello there you user!'))
