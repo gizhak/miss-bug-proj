@@ -24,6 +24,7 @@ app.use(express.static('public'))
 //     }
 // ]
 
+
 // save new bug
 app.get('/api/bug/save', (req, res) => {
     const { _id, title, description, severity } = req.query
@@ -33,7 +34,7 @@ app.get('/api/bug/save', (req, res) => {
         .then(savedBug => res.send(savedBug))
         .catch(err => {
             loggerService.error(err)
-            res.status(500).send(err)
+            res.status(404).send(err)
         })
 })
 
